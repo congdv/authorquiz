@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import AuthorQuiz from './AuthorQuiz';
 import AddAuthorForm from './AddAuthorForm';
-import * as serviceWorker from './serviceWorker';
 import {shuffle, sample} from 'underscore';
 import {BrowserRouter, Route, withRouter} from 'react-router-dom';
+import App from './App'
 
 const authors = [
     {
@@ -88,14 +88,14 @@ function onAnswerSelected(answer){
 
 
 
-function App(){
-    return <AuthorQuiz {...state} 
-        onAnswerSelected={onAnswerSelected}
-        onContinue={() => {
-            state = resetState();
-            render();
-        }} />;
-}
+// function App(){
+//     return <AuthorQuiz {...state} 
+//         onAnswerSelected={onAnswerSelected}
+//         onContinue={() => {
+//             state = resetState();
+//             render();
+//         }} />;
+// }
 
 const AuthorWrapper = withRouter(({ history})=>
     <AddAuthorForm onAddAuthor={(author) => {
@@ -113,8 +113,7 @@ function render(){
         </React.Fragment>
     </BrowserRouter>, document.getElementById('root'));
 }
-render();
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+
+// render();
+
+ReactDOM.render(<App/>, document.getElementById('root'));

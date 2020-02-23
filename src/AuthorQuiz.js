@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
-import './App.css'
+import './AuthorQuiz.css'
 import './bootstrap.min.css'
 
 function Hero() {
