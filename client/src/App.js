@@ -1,20 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router,
          Route,Switch } from "react-router-dom";
-import HomePage from "./HomePage";
+import AuthorQuizPage from './pages/AuthorQuiz';
 import AddAuthorForm from "./AddAuthorForm";
 
 
 
 const App = () => {
   return (
-    <div>
-      <Router>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/add" component={AddAuthorForm}/>
-      </Router>
-    </div>
+    <Router>
+      <Switch>
+          <Route exact path="/" component={AuthorQuizPage} />
+          <Route path="/add" component={AddAuthorForm}/>
+      </Switch>
+    </Router>
   )
 }
-
 export default App;

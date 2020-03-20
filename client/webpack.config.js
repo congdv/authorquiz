@@ -11,7 +11,7 @@ const config = {
   module: {
     rules: [
       {
-        test:/\.js$/,
+        test:/\.jsx?$/,
         loader: "babel-loader",
         query: {
           presets: ["@babel/preset-env","@babel/preset-react"],
@@ -33,6 +33,11 @@ const config = {
         ],
       }
     ],
+  },
+  resolve: {
+    // allows us to do absolute imports from "src"
+    modules: [path.join(__dirname, 'src'), 'node_modules'],
+    extensions: ['*', '.js', '.jsx'],
   },
   devServer: {
     contentBase: path.resolve(__dirname, "dev"),

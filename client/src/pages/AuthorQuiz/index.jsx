@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 import {shuffle, sample} from 'underscore';
-import AuthorQuiz from './AuthorQuiz';
 
+import Book from '../../components/Book';
+import Hero from '../../components/Hero';
+import Footer from '../../components/Footer';
+import Turn from '../../components/Turn';
+import Continue from '../../components/Continue';
 
 const authors = [
   {
@@ -47,17 +52,14 @@ const authors = [
       imageSource: 'Wikimedia Commons',
       books: ['Kafka on the Shore', 'A Wild Sheep Chase']
   },
-
 ]
+
 const getTurnData = () => {
   const allBooks = authors.reduce(function (p, c) {
     return p.concat(c.books);
   }, []);
-  console.log(allBooks)
   const fourRandomBooks = shuffle(allBooks).slice(0,4);
   const answer = sample(fourRandomBooks)
-  console.log(answer)
-
   return {
       books: fourRandomBooks,
       author: authors.find((author) => 
@@ -65,10 +67,9 @@ const getTurnData = () => {
   }
 }
 
-const HomePage = () => {
+const AuthorQuiz = () => {
   const [highlight, setHighlight] = useState('');
-  const [turnData, setTurnData] = useState(getTurnData());
-
+  const [turnData, setTurnData] = useState(getTurnData()); 
 
   const onAnswerSelected = (answer) => {
     const isCorrect = turnData.author.books.some((book)=> book === answer);
@@ -79,13 +80,16 @@ const HomePage = () => {
     setTurnData(getTurnData());
     setHighlight('none');
   }
+
   return (
-    <AuthorQuiz highlight={highlight}
-                turnData={turnData}
-                onAnswerSelected={onAnswerSelected}
-                onContinue={onContinue}
-    />
+    <div className="container-fluid">
+      <Hero description="Select the book written by the author shown"/>
+      <Turn {...turnData} highlight={highlight} onAnswerSelected={onAnswerSelected} />
+      <Continue show={highlight === 'correct'} onContinue={onContinue} />
+      <p><Link to="/add"> Add an author</Link></p>
+      <Footer />
+    </div>
   )
 }
 
-export default HomePage;
+export default AuthorQuiz;
