@@ -1,10 +1,10 @@
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+//const CopyWebpackPlugin = require('copy-webpack-plugin');
 const config = {
-  entry: path.join(__dirname, 'src/index.js'),
+  entry: ["@babel/polyfill",path.join(__dirname, 'src/index.js')],
   output: {
-    path: path.resolve(__dirname, "dev"),
+    path: path.resolve(__dirname, "./public"),
     filename:"[name].js",
     publicPath: '/',
   },
@@ -12,10 +12,7 @@ const config = {
     rules: [
       {
         test:/\.jsx?$/,
-        loader: "babel-loader",
-        query: {
-          presets: ["@babel/preset-env","@babel/preset-react"],
-        },
+        use:['babel-loader']
       },
       {
         test: /\.css$/i,
@@ -40,9 +37,13 @@ const config = {
     extensions: ['*', '.js', '.jsx'],
   },
   devServer: {
-    contentBase: path.resolve(__dirname, "dev"),
+    contentBase: path.resolve(__dirname, "public"),
     compress: true,
     port: 3000,
+    historyApiFallback: true,
+    // proxy: {
+    //   '/': 'http://localhost:3001'
+    // },
   },
   devtool: 'source-map',
   plugins: [
@@ -50,9 +51,11 @@ const config = {
       template: path.join(__dirname, 'src/index.html'),
       favicon: path.join(__dirname, 'src/favicon.ico'),
     }),
-    new CopyWebpackPlugin([
-      {from: path.join(__dirname, '/public'), to:'./'}
-    ]),
+
+    // new CopyWebpackPlugin([
+    //   {from: path.join(__dirname, '/public'), to:'./'}
+    // ]),
+    
   ]
 }
 

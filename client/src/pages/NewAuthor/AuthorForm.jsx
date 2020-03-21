@@ -1,21 +1,51 @@
-import React from 'react';
-import { Form } from 'react-bootstrap';
+import React, { useState } from 'react';
+import AutosizeInput from 'react-tagsinput';
+import Progress from '../../components/Progress';
+import Message from '../../components/Message';
+
+import 'react-tagsinput/react-tagsinput.css' ;
 
 const AuthorForm = () => {
+  const [tags, setTags] = useState([]);
+  const [percentage, setPercentage] = useState(0);
+  console.log(tags.map(tag => console.log(tag)));
+  const onChange = (tags) => {
+    setTags(tags);
+  }
+
   return (
-    <Form>
-      <Form.Group controlId="formBasicEmail">
-        <Form.Label>Author Name</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
-        <Form.Text className="text-muted">
-          We'll never share your email with anyone else.
-        </Form.Text>
-      </Form.Group>
-      
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
-    </Form>
+    <div className="row">
+    <div className="col-md-6 offset-1">
+      <div className="card card-body">
+        <form>
+          <div className="form-group">
+            <label htmlFor="authorName">Author Name</label>
+            <input
+              type="email"
+              id="authorName"
+              name="authorName"
+              className="form-control"
+              placeholder="Enter Author Name"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="authorPicture">Author Picture</label>
+            <div className="custom-file">
+              <input type="file" className="custom-file-input" id="authorPicture"/>
+              <label className="custom-file-label" htmlFor="authorPicture">
+              </label>
+            </div>
+            <Progress percentage={percentage}/>
+          </div>
+          <div className="form-group">
+            <label>Author Books</label>
+            <AutosizeInput type="text" value={tags} onChange={onChange}/>
+          </div>
+          <button type="submit" className="btn btn-primary btn-block col-md-4 mt-5 m-auto">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
   )
 }
 

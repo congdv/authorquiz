@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CardTurn, AuthorImg } from './Styles';
+import shortid from 'shortid';
 
 import Book from '../Book';
 
 const Turn = ({author, books, highlight, onAnswerSelected}) => {
-  const hightlightToBgColor = (highlight) => {
+  console.log("Turn -> author", author)
+  const highlightToBgColor = (highlight) => {
     const mapping = {
         'none':'',
         'correct':'green',
@@ -15,12 +17,12 @@ const Turn = ({author, books, highlight, onAnswerSelected}) => {
 }
 
 return (
-    <CardTurn color={hightlightToBgColor(highlight)} className="row">
+    <CardTurn color={highlightToBgColor(highlight)} className="row">
         <AuthorImg className="col-4 offset-1">
             <img src={author.imageUrl} alt="AuthorImage"/>
         </AuthorImg>
         <div className="col-6">
-            {books.map((title) => <Book title={title} key={title} onClick={onAnswerSelected} />)}
+            {books.map((title) => <Book title={title} key={shortid.generate()} onClick={onAnswerSelected} />)}
         </div>
     </CardTurn>
 )

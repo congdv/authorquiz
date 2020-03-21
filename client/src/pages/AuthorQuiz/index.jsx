@@ -1,63 +1,23 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import {shuffle, sample} from 'underscore';
+import { useSelector } from 'react-redux';
 
-import Book from '../../components/Book';
 import Hero from '../../components/Hero';
 import Footer from '../../components/Footer';
 import Turn from '../../components/Turn';
 import Continue from '../../components/Continue';
 
-const authors = [
-  {
-      name: 'Mark Twain',
-      imageUrl: 'images/authors/marktwain.jpg',
-      imageSource: 'Wikimedia Commons',
-      books: ['The Adventures of Huckleberry Finn',
-              'The Adventures of Tom Sawyer']
-  },
-  {
-      name: 'J.K Rowling',
-      imageUrl: 'images/authors/J._K._Rowling.jpg',
-      imageSource: 'Wikimedia Commons',
-      books: ['Harry Potter']
-  },
-  {
-      name: 'Mario Puzo',
-      imageUrl: 'images/authors/mario-puzo.jpg',
-      imageSource: 'Wikimedia Commons',
-      books: ['The GodFather', 'The Family', 'The Sicilian']
-  },
-  {
-      name: 'Victor Hugo',
-      imageUrl: 'images/authors/Victor_Hugo.jpg',
-      imageSource: 'Wikimedia Commons',
-      books: ['HernaniThe',' Hunchback of Notre-Dame']
-  },
-  {
-      name: 'Nguyen Nhat Anh',
-      imageUrl: 'images/authors/nguyen-nhat-anh.jpeg',
-      imageSource: 'Wikimedia Commons',
-      books: ['Celestial eyes','The girl from yesterday']
-  },
-  {
-      name: 'Arthur Conan Doyle',
-      imageUrl: 'images/authors/Arthur_Conan_Doyle.jpg',
-      imageSource: 'Wikimedia Commons',
-      books: ['The Hound of the Baskervilles', 'The Adventures of Sherlock Holmes', 'A Study in Scarlet']
-  },
-  {
-      name: 'Haruki Murakami',
-      imageUrl: 'images/authors/Haruki_Murakami.jpg',
-      imageSource: 'Wikimedia Commons',
-      books: ['Kafka on the Shore', 'A Wild Sheep Chase']
-  },
-]
-
-const getTurnData = () => {
+const getTurnData = (authors) => {
+  console.log("getTurnData -> authors", authors)
+  if(authors === null || authors === undefined){
+    return null;
+  }
   const allBooks = authors.reduce(function (p, c) {
     return p.concat(c.books);
   }, []);
+  console.log("getTurnData -> allBooks", allBooks)
+
   const fourRandomBooks = shuffle(allBooks).slice(0,4);
   const answer = sample(fourRandomBooks)
   return {
@@ -69,15 +29,23 @@ const getTurnData = () => {
 
 const AuthorQuiz = () => {
   const [highlight, setHighlight] = useState('');
-  const [turnData, setTurnData] = useState(getTurnData()); 
-
+  const authors = useSelector(state => state.authors);
+  const [turnData, setTurnData] = useState(getTurnData(authors));
+  
+  useEffect(() => {
+      setTurnData(getTurnData(authors));
+  }, [authors]);
+  
+  if(!turnData) {
+    return null;
+  }
   const onAnswerSelected = (answer) => {
     const isCorrect = turnData.author.books.some((book)=> book === answer);
     setHighlight(isCorrect ? 'correct':'wrong');
   }
 
   const onContinue = () => {
-    setTurnData(getTurnData());
+    setTurnData(getTurnData(authors));
     setHighlight('none');
   }
 
