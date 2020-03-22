@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 //const CopyWebpackPlugin = require('copy-webpack-plugin');
 const config = {
@@ -37,16 +38,23 @@ const config = {
     extensions: ['*', '.js', '.jsx'],
   },
   devServer: {
-    contentBase: path.resolve(__dirname, "public"),
+    contentBase: path.join(__dirname, 'public'),
     compress: true,
     port: 3000,
     historyApiFallback: true,
+    hot: true,
+    inline: true,
+    publicPath:'/',
     // proxy: {
-    //   '/': 'http://localhost:3001'
+    //   '/': {
+    //     target: 'http://localhost:3001',
+    //     secure: false
+    //   }
     // },
   },
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'src/index.html'),
       favicon: path.join(__dirname, 'src/favicon.ico'),

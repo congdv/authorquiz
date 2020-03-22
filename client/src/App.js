@@ -8,6 +8,8 @@ import AuthorQuizPage from './pages/AuthorQuiz';
 import NewAuthorPage from './pages/NewAuthor';
 import { AuthorConstants} from './constants';
 
+import { BASE_URL } from './utils/api';
+
 
 
 const App = () => {
@@ -16,7 +18,7 @@ const App = () => {
   useEffect(() => {
     const fetchAuthorList = async() => {
       try {
-        const authors = await axios.get('http://localhost:3001/api/authors');
+        const authors = await axios.get(`${BASE_URL}/api/authors`);
         dispatch({type: AuthorConstants.SET_AUTHORS, data: authors.data });
         console.log(authors.data);
       }catch(e) {

@@ -22,8 +22,10 @@ const getTurnData = (authors) => {
   const answer = sample(fourRandomBooks)
   return {
       books: fourRandomBooks,
-      author: authors.find((author) => 
-                            author.books.some((title) => title === answer))
+      author: authors.find((author) => {
+        console.log("getTurnData -> author", author)
+        return author.books.some((title) => title === answer)
+      })
   }
 }
 
