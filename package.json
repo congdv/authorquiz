@@ -2,7 +2,7 @@
   "name": "authorquiz",
   "version": "0.0.1",
   "description": "Author quiz application",
-  "author":"Cong Dao",
+  "author": "Cong Dao",
   "scripts": {
     "start": "cd server && npm start && cd ../client && npm start"
   },

@@ -1,0 +1,45 @@
+[
+  {
+      "name": "Mark Twain",
+      "imageUrl": "images/authors/marktwain.jpg",
+      "imageSource": "Wikimedia Commons",
+      "books": ["The Adventures of Huckleberry Finn",
+              "The Adventures of Tom Sawyer"]
+  },
+  {
+      "name": "J.K Rowling",
+      "imageUrl": "images/authors/J._K._Rowling.jpg",
+      "imageSource": "Wikimedia Commons",
+      "books": ["Harry Potter"]
+  },
+  {
+      "name": "Mario Puzo",
+      "imageUrl": "images/authors/mario-puzo.jpg",
+      "imageSource": "Wikimedia Commons",
+      "books": ["The GodFather", "The Family", "The Sicilian"]
+  },
+  {
+      "name": "Victor Hugo",
+      "imageUrl": "images/authors/Victor_Hugo.jpg",
+      "imageSource": "Wikimedia Commons",
+      "books": ["HernaniThe"," Hunchback of Notre-Dame"]
+  },
+  {
+      "name": "Nguyen Nhat Anh",
+      "imageUrl": "images/authors/nguyen-nhat-anh.jpeg",
+      "imageSource": "Wikimedia Commons",
+      "books": ["Celestial eyes","The girl from yesterday"]
+  },
+  {
+      "name": "Arthur Conan Doyle",
+      "imageUrl": "images/authors/Arthur_Conan_Doyle.jpg",
+      "imageSource": "Wikimedia Commons",
+      "books": ["The Hound of the Baskervilles", "The Adventures of Sherlock Holmes", "A Study in Scarlet"]
+  },
+  {
+      "name": "Haruki Murakami",
+      "imageUrl": "images/authors/Haruki_Murakami.jpg",
+      "imageSource": "Wikimedia Commons",
+      "books": ["Kafka on the Shore", "A Wild Sheep Chase"]
+  }
+]
