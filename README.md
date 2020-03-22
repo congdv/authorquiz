@@ -9,6 +9,7 @@ I'm learning React and Node. It's time for me to do a showcase product I've buil
 The best way to learn something that doing something. I have learned Typescript, and I used it in the back-end side. I tried to understand Webpack, and learned to config webpack for React project. It's so cool when you spend couple of hours to figure out what is that.
 
 ## What I'm missing?
+- Testing apps
 - I haven't use database so far
 - Score system for player
 - Rewards...
