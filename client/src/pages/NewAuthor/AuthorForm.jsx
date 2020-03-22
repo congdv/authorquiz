@@ -1,13 +1,28 @@
 import React, { useState } from 'react';
+import {useFormik} from 'formik';
+import * as Yup from 'yup';
 import AutosizeInput from 'react-tagsinput';
 import axios from 'axios';
 import Progress from '../../components/Progress';
 import Message from '../../components/Message';
 
+
 import 'react-tagsinput/react-tagsinput.css' ;
 import { useField } from '../../hooks';
 
 import { BASE_URL } from '../../utils/api';
+
+
+const validate = values => {
+  const errors = {};
+
+  if(!values.authorName || values.authorName.length < 1) {
+    errors.authorName = 'Required';
+  }
+
+  return errors;
+}
+
 
 const AuthorForm = () => {
   const [file, setFile] = useState(null);
@@ -17,6 +32,17 @@ const AuthorForm = () => {
   const [uploadFile, setUploadFile] = useState({});
   const authorName = useField('text');
   const imageSource = useField('text');
+
+  const formik = useFormik({
+    initialValues: {
+      authorName:'',
+    },
+    validate,
+    onSubmit: values => {
+      alert(JSON.stringify(values, null, 2));
+      console.log('formik submit-------');
+    }
+  })
 
   const onChange = (books) => {
     setBooks(books);
@@ -30,8 +56,6 @@ const AuthorForm = () => {
     const formData = new FormData();
     formData.set('name',authorName.value);
     formData.set('imageSource',imageSource.value)
-    //formData.set('books',books);
-    // formData.append('books', ' ');
     books.map( book => {
       formData.append('books', book);
     })
@@ -50,7 +74,6 @@ const AuthorForm = () => {
         }
       });
       setUploadFile(resp.data);
-
     } catch (error) {
       console.log(error);
     }
@@ -60,15 +83,15 @@ const AuthorForm = () => {
     <div className="row">
     <div className="col-md-4 offset-1">
       <div className="card card-body">
-        <form onSubmit={onSubmit}>
+        <form onSubmit={formik.handleSubmit}>
           <div className="form-group">
             <label htmlFor="authorName">Author Name</label>
             <input
-              type={authorName.type}
+              type="text"
               id="authorName"
               name="authorName"
-              value={authorName.value}
-              onChange={authorName.onChange}
+              value={formik.values.authorName}
+              onChange={formik.handleChange}
               className="form-control"
               placeholder="Enter Author Name"
             />
@@ -101,6 +124,7 @@ const AuthorForm = () => {
           </div>
           <button type="submit" className="btn btn-primary btn-block col-md-4 mt-5 m-auto">Submit</button>
         </form>
+        {formik.errors.authorName ? <div>{formik.errors.authorName}</div> : null}
       </div>
     </div>
     <div className="col-md-6 offset-1">
